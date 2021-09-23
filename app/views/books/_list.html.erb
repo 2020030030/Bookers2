@@ -1,23 +1,32 @@
- <div class='container px-5 px-sm-0'>
-  <div class='row'>
-  <div class='col-md-3'>
+
+
+ <% if book.errors.any? %>
+  <%= pluralize(book.errors.count, "error") %>
+  <% book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+
+    <div class='container'>
+      <div class='row'>
+        <div class='col-md-3'>
+
     <h2>User info</h2>
-    <table class="table">
 
-  <tr>
-
-
-<div>
- <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%>
-  <p><%= user.name %></p>
-  <p><%= user.introduction %></p>
-</div>
+ <table class="table">
+ <tr><%= attachment_image_tag user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%></tr>
+ <tr>
+  <th>name:<%= user.name %></th>
+ </tr>
+ <tr>
+  <th>introduction:<%= user.introduction %></th>
  </tr>
 </table>
 
-  <a class="btn btn-outline-secondary btn-block fas fa-user-cog edit_user_22776" href="/post_images/new"></a>
+     <%= link_to "" , edit_user_path(@user.id),class: "btn btn-outline-secondary btn-block fas fa-user-cog" %>
 
     <h2 class="mt-3">New book</h2>
+
       <%= form_with model:book, url:'/books', local:true do |f| %>
 
   <div class="form-group">
@@ -32,8 +41,7 @@
 
   <div class="form-group">
   <%= f.submit 'Create Book' %>
-  <% end %>
   </div>
-</form>
+  <% end %>
 </div>
 

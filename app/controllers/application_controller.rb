@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!,except: [:top, :about]
   before_action :configure_permitted_parameters, if: :devise_controller?
 
 
   def after_sign_in_path_for(resource)
-    books_path
+     user_path(resource)
   end
-
 
   protected
 
@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
   end
 
+  def user_params
+    params.require(:user).permit(:name, :profile_image, :introduction)
+  end
 
 end
 

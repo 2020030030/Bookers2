@@ -1,3 +1,4 @@
+
 <main>
 
 <%= form_with model:@book, url:"/books/#{@book.id}", local:true do |f| %>
@@ -5,6 +6,13 @@
   <div class='row'>
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
   		<h1>Editing Book</h1>
+
+ <% if @book.errors.any? %>
+  <%= pluralize(@book.errors.count, "error") %>
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
 
 
   <div class="form-group">
