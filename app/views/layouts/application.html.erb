@@ -38,7 +38,12 @@
 
 <%= flash[:notice] %>
 
-  <main><%= yield %></main>
+  <main>
+  <% if user_signed_in? %>
+    <%= render 'layouts/search' %>
+    <% end %>
+    <%= yield %>
+   </main>
 
    <footer>
   <div class='container mt-5'>
